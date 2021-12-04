@@ -117,6 +117,7 @@ public enum MovieDetailsSceneModels {
         var runTime:String?
         var score:String?
         var imdbRating:String?
+        var startRating:String?
         var imdbVotes:String?
     }
 

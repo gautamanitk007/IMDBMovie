@@ -8,14 +8,13 @@ import UIKit
 enum Identifier:String {
     case MovieCellIdentifier = "MovieCelli"
 }
-final class MovieListSceneViewController: UIViewController {
+final class MovieListSceneViewController: BaseViewController {
     
     var interactor: MovieListSceneBusinessLogic?
     var router: MovieListSceneRoutingLogic?
     private var loadPage: Int = 1
     private var isAllDone:Bool = false
     private var request: MovieListSceneDataModels.Request?
-    private var movieList: [MovieListSceneDataModels.MovieViewModel]?
     private var searchController = UISearchController(searchResultsController: nil)
     @IBOutlet weak var movieCollectionView: UICollectionView!
     var datasource : MovieCollectionDatasource<MovieCell,MovieListSceneDataModels.MovieViewModel>!
@@ -77,11 +76,13 @@ private extension MovieListSceneViewController {
 //MARK:- MovieListSceneDisplayLogic
 extension MovieListSceneViewController: MovieListSceneDisplayLogic {
     func displayErrors(viewErrorModel: MovieListSceneDataModels.ViewError) {
+        self.stopActivity()
         self.request?.isLoading = false
         self.router?.showFailure(message: viewErrorModel.errorMessage)
     }
 
     func dispayMovieList(movieList:[MovieListSceneDataModels.MovieViewModel]) {
+        self.stopActivity()
         self.request?.isLoading = false
         self.datasource.updateItems(items: movieList)
         self.movieCollectionView.reloadData()
@@ -116,6 +117,7 @@ extension MovieListSceneViewController: UISearchResultsUpdating {
             }
         }
         self.updateRequest(query: query)
+        self.startActivity()
         self.interactor?.fetchMovie(request: request)
     }
 }
@@ -150,6 +152,7 @@ extension MovieListSceneViewController:UICollectionViewDelegateFlowLayout{
         if self.isAllDone == false  && isNextPage && self.request?.isLoading == false{
             self.loadPage += 1
             self.updateRequest(query: self.searchController.searchBar.text)
+            self.startActivity()
             self.interactor?.fetchMovie(request: request)
         }
     }

@@ -13,7 +13,7 @@ final class MovieDetailsScenePresenter {
 
 extension MovieDetailsScenePresenter: MovieDetailsScenePresentationLogic{
     func presentMovieDetails(response: MovieDetailsSceneModels.Response) {
-        let viewModel = MovieDetailsSceneModels.ViewModel(title: response.Title, year: response.Year, rating: response.Rated, thumbUrl: response.Poster, actor: response.Actors, director: response.Director, writer: response.Writer, synopsis: response.Plot, runTime: response.Runtime, score: response.Rated, imdbRating: response.imdbRating, imdbVotes: response.imdbVotes)
+        let viewModel = MovieDetailsSceneModels.ViewModel(title: response.Title, year: response.Year, rating: response.Rated, thumbUrl: response.Poster, actor: response.Actors, director: response.Director, writer: response.Writer, synopsis: response.Plot, runTime: response.Runtime, score: response.Rated, imdbRating: response.imdbRating, startRating: "★\(response.imdbRating ?? "")",imdbVotes: response.imdbVotes)
         
         self.viewController?.dispayMovieDetails(viewModel: viewModel)
     }

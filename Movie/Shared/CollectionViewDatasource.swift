@@ -24,7 +24,6 @@ class MovieCollectionDatasource<CellType,Model>:NSObject,UICollectionViewDataSou
     }
     func updateItems( items: [Model]) {
         self.items += items
-        print("Total:\(self.items.count)")
     }
     func getItem(indexPath:IndexPath) -> Model {
         return self.items[indexPath.row]
