@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Movie
+
+  Created by Gautam Singh on 4/12/21.
+  
+*/
+
+"Warning_Title" = "Warning";
+"Button_OK_Title" = "OK";
+"Button_Cancel_Title" = "Cancel";
+"Information_Error_Title" = "Error!";
+
+"Error_Badrequest" = "Invalid Url";
+"Error_API" = "Invalid Api Key";
+"Error_timeout" = "Time out";
+"Error_Server_Unreachable" = "Server unreachable";
+"Error_Server_Down" = "Server down";
+"Unkown" = "Unkown Error";
+"Too_Many_Result" = "Please refine your search cricteria";
