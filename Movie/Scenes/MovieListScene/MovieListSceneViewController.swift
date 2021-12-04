@@ -130,7 +130,7 @@ extension MovieListSceneViewController:UICollectionViewDelegate{
 //MARK:- UICollectionViewDelegateFlowLayout
 extension MovieListSceneViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (self.movieCollectionView.frame.width - 40)/2
+        let width = (self.movieCollectionView.frame.width - 20)/2
         return CGSize(width: width, height: width)
     }
     
@@ -143,7 +143,7 @@ extension MovieListSceneViewController:UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left:8, bottom: 10, right: 8)
+        return UIEdgeInsets(top: 10, left:16, bottom: 10, right: 16)
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let isNextPage = self.isNextPageAvailable(collectionView: collectionView)

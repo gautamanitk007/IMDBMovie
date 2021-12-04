@@ -37,6 +37,7 @@
 		D249454A275A7F83008E21BE /* APIWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2494549275A7F83008E21BE /* APIWorker.swift */; };
 		D249454F275A7FA0008E21BE /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D249454E275A7FA0008E21BE /* APIManager.swift */; };
 		D24B0E3D275BB702006F71CF /* MovieDetailsSceneProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24B0E3C275BB702006F71CF /* MovieDetailsSceneProtocol.swift */; };
+		D24B0E45275BD234006F71CF /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24B0E44275BD234006F71CF /* RoundedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		D2494549275A7F83008E21BE /* APIWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIWorker.swift; sourceTree = "<group>"; };
 		D249454E275A7FA0008E21BE /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		D24B0E3C275BB702006F71CF /* MovieDetailsSceneProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsSceneProtocol.swift; sourceTree = "<group>"; };
+		D24B0E44275BD234006F71CF /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				D222CCDC275B1F380034AD8D /* MovieCell.swift */,
+				D24B0E44275BD234006F71CF /* RoundedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				D249451F275A7419008E21BE /* MovieListScenePresenter.swift in Sources */,
 				D249452E275A7448008E21BE /* MovieDetailsScenePresenter.swift in Sources */,
 				D2494545275A7E7F008E21BE /* APIProtocols.swift in Sources */,
+				D24B0E45275BD234006F71CF /* RoundedView.swift in Sources */,
 				D249454F275A7FA0008E21BE /* APIManager.swift in Sources */,
 				D222CCD2275B05650034AD8D /* Utils.swift in Sources */,
 				D249454A275A7F83008E21BE /* APIWorker.swift in Sources */,

@@ -11,8 +11,12 @@ final class MovieDetailsSceneViewController: UIViewController {
     var router: MovieDetailsSceneRoutingLogic?
     var movieKey: String?
 
+    @IBOutlet weak var lblDirector: UILabel!
+    @IBOutlet weak var lblWriter: UILabel!
+    @IBOutlet weak var lblActor: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Movie Details"
         self.setup()
         self.fetchMoviesDeatils()
     }
@@ -40,7 +44,11 @@ private extension MovieDetailsSceneViewController {
 extension MovieDetailsSceneViewController: MovieDetailsSceneDisplayLogic {
     
     func dispayMovieDetails(viewModel: MovieDetailsSceneModels.ViewModel) {
-        print(viewModel)
+        
+        
+        self.lblDirector.text = viewModel.director
+        self.lblWriter.text = viewModel.writer
+        self.lblActor.text = viewModel.actor
     }
     
     func displayErrors(viewErrorModel: MovieDetailsSceneModels.ViewError) {
