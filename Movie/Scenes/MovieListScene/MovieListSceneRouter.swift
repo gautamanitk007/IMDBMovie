@@ -15,21 +15,13 @@ protocol MovieListSceneRoutingLogic: Failure {
     func showMovieDetail(movieKey: String)
 }
 
-
-
-protocol MovieListSceneDataPassing {
-    
-    var dataStore: MovieListSceneDataStore? { get }
-}
-
-final class MovieListSceneRouter: NSObject {
+final class MovieListSceneRouter {
     
   weak var viewController: MovieListSceneViewController?
-  var dataStore: MovieListSceneDataStore?
-  
+    
 }
 
-extension MovieListSceneRouter: MovieListSceneRoutingLogic, MovieListSceneDataPassing {
+extension MovieListSceneRouter: MovieListSceneRoutingLogic {
     func showMovieDetail(movieKey: String) {
         guard let nextViewController = Utils.getViewController(identifier: "MovieDetailsScene") as? MovieDetailsSceneViewController else {
             fatalError("Controller doesn't exist")

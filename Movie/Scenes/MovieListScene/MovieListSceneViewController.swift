@@ -11,8 +11,10 @@ enum Identifier:String {
 final class MovieListSceneViewController: UIViewController {
     
     var interactor: MovieListSceneBusinessLogic?
-    var router: (NSObjectProtocol & MovieListSceneRoutingLogic & MovieListSceneDataPassing)?
+    var router: MovieListSceneRoutingLogic?
     private var loadPage: Int = 1
+    private var isAllDone:Bool = false
+    private var request: MovieListSceneDataModels.Request?
     private var movieList: [MovieListSceneDataModels.MovieViewModel]?
     private var searchController = UISearchController(searchResultsController: nil)
     @IBOutlet weak var movieCollectionView: UICollectionView!
@@ -21,11 +23,12 @@ final class MovieListSceneViewController: UIViewController {
         super.viewDidLoad()
         self.setup()
         self.createSearchController()
-        searchController.searchBar.text = "mar"
+        request = MovieListSceneDataModels.Request(rKey: "", rType: "movie",rPage: "\(self.loadPage)",isLoading: true)
+        searchController.searchBar.text = "marvel"
     }
     @IBAction func didRefreshTapped(_ sender: Any) {
         self.loadPage += 1
-        self.interactor?.fetchMovie(request: MovieListSceneDataModels.Request(rKey: "Marvel", rType: "movie",rPage: "\(self.loadPage)"))
+        self.interactor?.fetchMovie(request: request)
     }
 }
 
@@ -41,7 +44,7 @@ private extension MovieListSceneViewController {
         interactor.presenter = presenter
         presenter.viewController = viewController
         router.viewController = viewController
-        //router.dataStore = interactor
+
         viewController.datasource = MovieCollectionDatasource(cellIdentifier: Identifier.MovieCellIdentifier.rawValue,
                                               items: []){(cell,viewModel) in
             cell.configure(viewModel: viewModel)
@@ -63,17 +66,41 @@ private extension MovieListSceneViewController {
         definesPresentationContext = true
     }
     
+    func isNextPageAvailable(collectionView:UICollectionView)-> Bool {
+        let yOffset = collectionView.contentOffset.y;
+        let height = collectionView.contentSize.height - collectionView.frame.height;
+        return yOffset / height > 0.6;
+    }
+    
 }
 
 //MARK:- MovieListSceneDisplayLogic
 extension MovieListSceneViewController: MovieListSceneDisplayLogic {
     func displayErrors(viewErrorModel: MovieListSceneDataModels.ViewError) {
+        self.request?.isLoading = false
         self.router?.showFailure(message: viewErrorModel.errorMessage)
     }
 
     func dispayMovieList(movieList:[MovieListSceneDataModels.MovieViewModel]) {
+        self.request?.isLoading = false
         self.datasource.updateItems(items: movieList)
         self.movieCollectionView.reloadData()
+    }
+    func displayAllDownloaded(isAllDone:Bool) {
+        self.isAllDone = true
+    }
+    func resetAllPreviousSearchCricteriaAndResults() {
+        self.isAllDone = false
+        self.loadPage = 1
+        // Clear datasource because user is searching another movie title
+        self.datasource.removeAll()
+        // Refresh the list
+        self.movieCollectionView.reloadData()
+    }
+    func updateRequest(query:String?){
+        self.request?.rKey = query
+        self.request?.isLoading = true
+        self.request?.rPage = "\(self.loadPage)"
     }
 }
 
@@ -83,8 +110,13 @@ extension MovieListSceneViewController: UISearchResultsUpdating {
         let queryString = searchController.searchBar.text
         guard let query = queryString, !query.isEmpty else { return }
         guard query.count > 2 else { return }
-        self.interactor?.fetchMovie(request: MovieListSceneDataModels.Request(rKey: query,
-                                                                              rType: "movie",rPage: "\(self.loadPage)"))
+        if let key = request?.rKey {
+            if key != query {
+                self.resetAllPreviousSearchCricteriaAndResults()
+            }
+        }
+        self.updateRequest(query: query)
+        self.interactor?.fetchMovie(request: request)
     }
 }
 
@@ -112,5 +144,13 @@ extension MovieListSceneViewController:UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left:8, bottom: 10, right: 8)
+    }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let isNextPage = self.isNextPageAvailable(collectionView: collectionView)
+        if self.isAllDone == false  && isNextPage && self.request?.isLoading == false{
+            self.loadPage += 1
+            self.updateRequest(query: self.searchController.searchBar.text)
+            self.interactor?.fetchMovie(request: request)
+        }
     }
 }

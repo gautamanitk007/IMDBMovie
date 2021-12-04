@@ -14,10 +14,9 @@ public class APIWorker: ServiceProtocol {
     init(_ apiManager:APIManagerProtocol) {
         self.apiManager = apiManager
     }
-    public func fetchMovies(request:MovieListSceneDataModels.Request, on completion:@escaping(MovieListSceneDataModels.ResponseModel?,ApiError?)->()){
-        
+    public func fetchMovies(request:MovieListSceneDataModels.Request?, on completion:@escaping(MovieListSceneDataModels.ResponseModel?,ApiError?)->()){
         var apiRequest:APIRequest!
-        if let key = request.rKey, let type = request.rType, let page = request.rPage {
+        if let key = request?.rKey, let type = request?.rType, let page = request?.rPage {
             apiRequest = APIRequest(searchParams: "&s=\(key)&type=\(type)&page=\(page)")
         }
         apiRequest.httpMethod = HttpMethod.get

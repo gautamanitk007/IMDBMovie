@@ -34,4 +34,7 @@ extension MovieListScenePresenter: MovieListScenePresentationLogic {
             self.viewController?.displayErrors(viewErrorModel: MovieListSceneDataModels.ViewError(errorMessage: error.message!))
         }
     }
+    func presentStopFetching(isStop:Bool){
+        self.viewController?.displayAllDownloaded(isAllDone: true)
+    }
 }

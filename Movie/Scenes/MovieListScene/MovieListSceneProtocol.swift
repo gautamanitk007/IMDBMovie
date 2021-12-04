@@ -11,13 +11,15 @@ import Foundation
 protocol MovieListSceneDisplayLogic: AnyObject {
     func dispayMovieList(movieList:[MovieListSceneDataModels.MovieViewModel])
     func displayErrors(viewErrorModel: MovieListSceneDataModels.ViewError)
+    func displayAllDownloaded(isAllDone:Bool)
 }
 
 protocol MovieListSceneBusinessLogic: AnyObject {
-    func fetchMovie(request: MovieListSceneDataModels.Request)
+    func fetchMovie(request: MovieListSceneDataModels.Request?)
 }
 
 protocol MovieListScenePresentationLogic: AnyObject {
     func presentMovies(response: MovieListSceneDataModels.ResponseModel)
     func presentErrors(error: ApiError)
+    func presentStopFetching(isStop:Bool)
 }

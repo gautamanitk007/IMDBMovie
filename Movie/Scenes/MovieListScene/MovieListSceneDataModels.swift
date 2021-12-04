@@ -13,6 +13,7 @@ public enum MovieListSceneDataModels {
         var rKey: String?
         var rType: String?
         var rPage: String?
+        var isLoading: Bool?
     }
     public struct ResponseModel: Decodable {
         let Response: String?
