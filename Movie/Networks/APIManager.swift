@@ -10,7 +10,7 @@ protocol APIManagerProtocol {
     func runAPI<T>(resource:Resource<T>,completion:@escaping(T?,ApiError?)->())
 }
 
-public class APIManager: APIManagerProtocol {
+public struct APIManager: APIManagerProtocol {
     
     func runAPI<T>(resource:Resource<T>,completion:@escaping(T?,ApiError?)->()){
         guard let urlRequest = resource.request.httpRequest else {

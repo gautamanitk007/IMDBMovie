@@ -21,7 +21,7 @@ final class MovieDetailsSceneViewController: BaseViewController {
     @IBOutlet weak var lblScore: UILabel!
     @IBOutlet weak var lblReview: UILabel!
     @IBOutlet weak var lblPopularity: UILabel!
-    
+    @IBOutlet weak var imgThumb: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblYear: UILabel!
     
@@ -70,8 +70,9 @@ extension MovieDetailsSceneViewController: MovieDetailsSceneDisplayLogic {
         self.lblDirector.text = viewModel.director
         self.lblWriter.text = viewModel.writer
         self.lblActor.text = viewModel.actor
+        guard let urlString = viewModel.thumbUrl else { return}
+        self.imgThumb.download(url: urlString, mode: .scaleAspectFit)
     }
-    
     func displayErrors(viewErrorModel: MovieDetailsSceneModels.ViewError) {
         self.stopActivity()
         self.router?.showFailure(message: viewErrorModel.errorMessage)

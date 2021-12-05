@@ -14,6 +14,7 @@ final class MovieListSceneViewController: BaseViewController {
     var router: MovieListSceneRoutingLogic?
     private var loadPage: Int = 1
     private var isAllDone:Bool = false
+    private let margin: CGFloat = 16.0
     private var request: MovieListSceneDataModels.Request?
     private var searchController = UISearchController(searchResultsController: nil)
     @IBOutlet weak var movieCollectionView: UICollectionView!
@@ -26,8 +27,7 @@ final class MovieListSceneViewController: BaseViewController {
         searchController.searchBar.text = "marvel"
     }
     @IBAction func didRefreshTapped(_ sender: Any) {
-        self.loadPage += 1
-        self.interactor?.fetchMovie(request: request)
+        searchController.searchBar.text = "marvel"
     }
 }
 
@@ -132,20 +132,20 @@ extension MovieListSceneViewController:UICollectionViewDelegate{
 //MARK:- UICollectionViewDelegateFlowLayout
 extension MovieListSceneViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (self.movieCollectionView.frame.width - 20)/2
-        return CGSize(width: width, height: width)
+        let width = (self.movieCollectionView.frame.width - self.margin)/2
+        return CGSize(width: width, height: width + self.margin)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return self.margin
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return self.margin
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left:16, bottom: 10, right: 16)
+        return UIEdgeInsets(top: self.margin, left:self.margin, bottom: self.margin, right: self.margin)
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let isNextPage = self.isNextPageAvailable(collectionView: collectionView)
