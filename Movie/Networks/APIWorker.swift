@@ -18,6 +18,8 @@ public class APIWorker: ServiceProtocol {
         var apiRequest:APIRequest!
         if let key = request?.rKey, let type = request?.rType, let page = request?.rPage {
             apiRequest = APIRequest(searchParams: "&s=\(key)&type=\(type)&page=\(page)")
+        } else {
+            apiRequest = APIRequest(searchParams: "")
         }
         apiRequest.httpMethod = HttpMethod.get
         let movieResource = Resource<MovieListSceneDataModels.ResponseModel>(request: apiRequest) { data in
