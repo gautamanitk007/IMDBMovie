@@ -12,11 +12,11 @@ final class MovieListSceneViewController: BaseViewController {
     
     var interactor: MovieListSceneBusinessLogic?
     var router: MovieListSceneRoutingLogic?
+    var searchController = UISearchController(searchResultsController: nil)
     private var loadPage: Int = 1
     private var isAllDone:Bool = false
     private let margin: CGFloat = 16.0
     private var request: MovieListSceneDataModels.Request?
-    private var searchController = UISearchController(searchResultsController: nil)
     @IBOutlet weak var movieCollectionView: UICollectionView!
     var datasource : MovieCollectionDatasource<MovieCell,MovieListSceneDataModels.MovieViewModel>!
     override func viewDidLoad() {
